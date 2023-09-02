@@ -1,9 +1,7 @@
-# HB_lighthouse_report_in_R
-This R-code will show you how to recreate the typical lighthouse/sawtooth report content and structure of a hierarchical Bayes logistic regression analysis using data collected with choice-based conjoint design
-
-# Choice Modeling Code README
-
-This README provides detailed instructions on how to use the provided R code for conducting choice modeling analysis, as well as recreating a Sawtooth/Lighthouse report. The code is designed for students or researchers who want to analyze choice data and generate useful reports. Please follow the steps outlined below to successfully use the code.
+# Hierarchical Bayesian logistic regression analysis in R 
+This README provides detailed instructions on how to use the provided R code for conducting a hierarchical Bayesion logistic regression using choice-based conjoint data, as well as recreating a corresponding Sawtooth/Lighthouse report to summarize the results. 
+The code is designed for students or researchers who want to analyze choice data and generate useful reports. 
+Please follow the steps outlined below to successfully use the code.
 
 ## Table of Contents
 1. [Setup](#setup)
@@ -34,6 +32,8 @@ Make sure you have your choice dataset prepared in a CSV file format. The code a
 # Load the dataset
 data <- read.csv(here("dataset", "CBC_Choices.csv"), sep = ";") 
 ```
+
+![alt text](https://github.com/MyNameIsCarsten/beatstars-upload/blob/main/GUI.jpg)
 
 ## 2. Data Preprocessing <a name="data-preprocessing"></a>
 
