@@ -33,7 +33,39 @@ Make sure you have your choice dataset prepared in a CSV file format. The code a
 data <- read.csv(here("dataset", "CBC_Choices.csv"), sep = ";") 
 ```
 
-![alt text](https://github.com/MyNameIsCarsten/beatstars-upload/blob/main/GUI.jpg)
+The choice-based conjoint data should look like this:
+```
+| sys_RespNum | Task | Concept | Attribute1 | Attribute2 | Attribute3 | Attribute4 | Response |
+| ----------- | ---- | ------- | ---------- | ---------- | ---------- | ---------- | -------- |
+| 1           | 1    | 1       | 3          | 3          | 3          | 3          | 1        |
+| 1           | 1    | 2       | 2          | 1          | 2          | 1          | 0        |
+| 1           | 2    | 1       | 1          | 3          | 3          | 2          | 1        |
+| 1           | 2    | 2       | 3          | 1          | 1          | 3          | 0        |
+| 1           | 3    | 1       | 3          | 2          | 1          | 1          | 1        |
+| 1           | 3    | 2       | 2          | 3          | 2          | 2          | 0        |
+| 1           | 4    | 1       | 2          | 2          | 2          | 2          | 1        |
+| 1           | 4    | 2       | 1          | 3          | 2          | 3          | 0        |
+ ...
+| 1           | 20   | 1       | 2          | 2          | 2          | 3          | 1        |
+| 1           | 20   | 2       | 2          | 1          | 1          | 1          | 0        |
+| 1           | 21   | 1       | 1          | 1          | 2          | 1          | 0        |
+| 1           | 21   | 2       | 3          | 1          | 3          | 3          | 1        |
+| 2           | 1    | 1       | 2          | 3          | 2          | 3          | 1        |
+| 2           | 1    | 2       | 1          | 1          | 1          | 3          | 0        |
+| 2           | 2    | 1       | 1          | 2          | 3         
+
+```
+The dataset should contain the following variables:
+1. `sys_RespNum`: An identifier for the respondent or participant.
+2. `Task`: Represents different tasks or scenarios.
+3. `Concept`: Indicates different concepts or alternatives within each task.
+4. `Attribute1`, `Attribute2`, `Attribute3`, `Attribute4`: Represent attributes or features associated with each concept. The values in these columns represent different levels or characteristics of the attributes.
+5. `Response`: Indicates the response or choice made by the respondent. It is coded binary, with values of 0 and 1, where 1 indicates the selection of a particular concept, and 0 indicates the non-selection of that concept.
+
+
+The data is structured to capture choices made by respondents across different tasks and concepts, considering various attributes associated with those concepts. The dataset can be used for analyzing choice behavior, such as preference modeling or predicting choices based on attribute levels.
+
+![exemplary choice-based conjoint task](https://github.com/MarcLinderGit/HB_lighthouse_report_in_R/pictures/cbc_tasl.png)
 
 ## 2. Data Preprocessing <a name="data-preprocessing"></a>
 
@@ -89,3 +121,4 @@ The final report is exported as an Excel file named "HB_report.xlsx". It include
 6. After running all sections, you will find the final report "HB_report.xlsx" in the "HB_r" directory.
 
 Note: Be patient when running the code, as choice modeling and data processing can take some time depending on the dataset's size and complexity.
+
