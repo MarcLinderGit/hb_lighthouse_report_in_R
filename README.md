@@ -1,5 +1,5 @@
-# Hierarchical Bayesian logistic regression analysis and report in R 
-This README provides detailed instructions on how to use the provided R code for conducting a hierarchical Bayesion logistic regression using choice-based conjoint data, as well as recreating a corresponding Sawtooth/Lighthouse report to summarize the results. Whenever you conduct a conjoint analysis, you are likely to run into [Lighthouse Studio by Sawtooth Software](https://sawtoothsoftware.com/). Their  software is incredibly powerful, intuitive to use, and free for students and researchers for a limited time. I developed this code to be able to extend my analyses beyond the scope offered by their software. In addition, the free access to their software via student or academic grants is timely limited. The code therefore allowed me to work independent from timely restrictions.
+# Hierarchical Bayesian hierarchical multinomial logit analysis and report in R 
+This README provides detailed instructions on how to use the provided R code for estimating a hierarchical Bayesion hierarchical multinomial logit model using choice-based conjoint data, as well as recreating a corresponding Sawtooth/Lighthouse report to summarize the results. Whenever you conduct a conjoint analysis, you are likely to run into [Lighthouse Studio by Sawtooth Software](https://sawtoothsoftware.com/). Their  software is incredibly powerful, intuitive to use, and free for students and researchers for a limited time. I developed this code to be able to extend my analyses beyond the scope offered by their software. In addition, the free access to their software via student or academic grants is timely limited. The code therefore allowed me to work independent from timely restrictions.
 
 
 ## Table of Contents
@@ -64,13 +64,20 @@ The choice-based conjoint data should look like this:
 | 2           | 1    | 2       | 1          | 1          | 1          | 3          | 0        |
 | 2           | 2    | 1       | 1          | 2          | 3         
 
-The dataset should contain the following variables:
+The dataset contains the following variables:
 1. `sys_RespNum`: An identifier for the respondent or participant.
-2. `Task`: Represents different tasks or scenarios.
+2. `Task`: Represents different tasks or scenarios. Note that this number starts at 1 again, once the respondent id (sys_RespNum) switches to the next person. This is important for the estimation to work later on.
 3. `Concept`: Indicates different concepts or alternatives within each task.
 4. `Attribute1`, `Attribute2`, `Attribute3`, `Attribute4`: Represent attributes or features associated with each concept. The values in these columns represent different levels or characteristics of the attributes.
 5. `Response`: Indicates the response or choice made by the respondent. It is coded binary, with values of 0 and 1, where 1 indicates the selection of a particular concept, and 0 indicates the non-selection of that concept.
 
+Using the first two rows as an example, we see:
++ The first row captures the first concept/alternative displayed on the left in task 1.
++ This first concept/alternative had a level of 3 (i.e., high: ⭐⭐⭐) for each of the four displayed attributes.
++ The reponse column indicates that the respondet choose this option (1 = chosen).
++ The second row captures the second concept/alternative that was displayed on the right in task 1.
++ This second concept/alternative had a level of 2 (i.e., medium: ⭐⭐☆) for attribute1 and attribute 3 and a level of 1 (i.e., low: ⭐☆☆) for attribute2 and attribute 4.
++ The reponse column indicates that the respondet did not choose this option (0 = not chosen). Note that the first row already helps us infer that the second concept/alternative was not chosen, as only one concept/alternative within a task can be chosen.
 
 ## 2. Data Preprocessing <a name="data-preprocessing"></a>
 
@@ -79,6 +86,22 @@ Columns are renamed for clarity to match specific variable names. This step is n
 
 ### Creating Dummy Variables
 The code creates dummy variables for the categorical attribute variables of the choice based conjoint design to prepare the data for choice modeling. It renames these dummy variables by replacing spaces with dots in column names.
+
+Here's an example using the attribute 1:
+
+Before:
+| sys_RespNum | Task | Concept | <mark>Attribute1</mark> | Attribute2 | Attribute3 | Attribute4 | Response |
+| ----------- | ---- | ------- | ---------- | ---------- | ---------- | ---------- | -------- |
+| 1           | 1    | 1       | 3          | 3          | 3          | 3          | 1        |
+| 1           | 1    | 2       | 2          | 1          | 2          | 1          | 0        |
+
+After:
+| sys_RespNum | Task | Concept | Attribute1<mark>_low</mark>  | Attribute1<mark>_medium</mark>  | Attribute1<mark>_high</mark>  | Attribute2 | Attribute3 | Attribute4 | Response |
+| ----------- | ---- | ------- | --------------- | ----------------- | ---------------- | ---------- | ---------- | ---------- | -------- |
+| 1           | 1    | 1       | 0          | 0             | 1              | 3          | 3          | 3          | 1        |
+| 1           | 1    | 2       | 0          | 1             | 0              | 1          | 2          | 1          | 0        |
+
+
 
 ### Creating a Choice Variable
 This is an important step for the analysis to work. A choice variable is created based on the "alt" (alternative) and "choice" columns. This variable indicates which alternative was chosen for each task.
@@ -107,7 +130,7 @@ After:
 Columns ending with "medium" are removed to serve as reference groups and avoid multicollinearity. 
 
 ### Performing Choice Modeling
-Choice modeling is performed using the `choicemodelr` function. The results will be saved in the "estimations" directory.
+Choice modeling is performed using the [`choicemodelr`](https://github.com/cran/ChoiceModelR) function. The results will be saved in the "estimations" directory.
 ```R
 # Perform choice modeling
 hb.post <- choicemodelr(data = choice_data, 
@@ -161,17 +184,17 @@ Calculates the mean and standard deviation of utilities for each attribute level
 ## 5. Exporting Final Report <a name="exporting-final-report"></a>
 
 The final report is exported as an Excel file named "HB_report.xlsx". It includes sheets for the following:
-- `Summ - Average Importances`: Summary of average importances.
+- `Summ - Average Importances`: Summary of average importances.<br>
 ![Summ - Average Importances](pictures/sheet1_summ_average_importances.JPG)
 
-- `Summ - Avg. Util. (ZC Diffs)`: Summary of average utilities with Zero-Centered Diffs.
+- `Summ - Avg. Util. (ZC Diffs)`: Summary of average utilities with Zero-Centered Diffs.<br>
 ![Summ - Avg. Util. (ZC Diffs)](pictures/sheet2_summ_average_utils_zc_diffs.JPG)
 
-- `Individual Utilities (Raw)`: Individual-level utilities.
+- `Individual Utilities (Raw)`: Individual-level utilities.<br>
 ![Individual Utilities (Raw)](pictures/sheet3_individual_utils_raw.JPG)
 
-- `Individual Util.s (ZC Diffs)`: Individual-level utilities with Zero-Centered Diffs.
+- `Individual Util.s (ZC Diffs)`: Individual-level utilities with Zero-Centered Diffs.<br>
 ![Individual Util.s (ZC Diffs)](pictures/sheet4_individual_utils_zc_diffs.JPG)
 
-- `Individual Importances`: Individual-level importances.
+- `Individual Importances`: Individual-level importances.<br>
 ![Individual Importances](pictures/sheet5_individual_importances.JPG)
