@@ -65,7 +65,7 @@ The dataset should contain the following variables:
 
 The data is structured to capture choices made by respondents across different tasks and concepts, considering various attributes associated with those concepts. The dataset can be used for analyzing choice behavior, such as preference modeling or predicting choices based on attribute levels.
 
-![exemplary choice-based conjoint task](https://github.com/MarcLinderGit/HB_lighthouse_report_in_R/pictures/cbc_tasl.png)
+![exemplary choice-based conjoint task](pictures/cbc_task.png)
 
 ## 2. Data Preprocessing <a name="data-preprocessing"></a>
 
