@@ -44,7 +44,7 @@ data <- read.csv(here("dataset", "CBC_Choices.csv"), sep = ";")
 ```
 
 The choice-based conjoint data should look like this:
-```
+
 | sys_RespNum | Task | Concept | Attribute1 | Attribute2 | Attribute3 | Attribute4 | Response |
 | ----------- | ---- | ------- | ---------- | ---------- | ---------- | ---------- | -------- |
 | 1           | 1    | 1       | 3          | 3          | 3          | 3          | 1        |
@@ -64,7 +64,6 @@ The choice-based conjoint data should look like this:
 | 2           | 1    | 2       | 1          | 1          | 1          | 3          | 0        |
 | 2           | 2    | 1       | 1          | 2          | 3         
 
-```
 The dataset should contain the following variables:
 1. `sys_RespNum`: An identifier for the respondent or participant.
 2. `Task`: Represents different tasks or scenarios.
@@ -94,7 +93,6 @@ Before:
 | 1           | 21   | 2       | 3          | 1          | 3          | 3          | <mark>1</mark>|
 
 After:
-Before:
 | sys_RespNum | Task | Concept | Attribute1 | Attribute2 | Attribute3 | Attribute4 | Choice |
 | ----------- | ---- | ------- | ---------- | ---------- | ---------- | ---------- | -------- |
  ...
@@ -164,16 +162,16 @@ Calculates the mean and standard deviation of utilities for each attribute level
 
 The final report is exported as an Excel file named "HB_report.xlsx". It includes sheets for the following:
 - `Summ - Average Importances`: Summary of average importances.
-![Summ - Average Importances](sheet1_summ_average_importances.JPG)
+![Summ - Average Importances](pictures/sheet1_summ_average_importances.JPG)
 
 - `Summ - Avg. Util. (ZC Diffs)`: Summary of average utilities with Zero-Centered Diffs.
-![Summ - Avg. Util. (ZC Diffs)](sheet2_summ_average_utils_zc_diffs.JPG)
+![Summ - Avg. Util. (ZC Diffs)](pictures/sheet2_summ_average_utils_zc_diffs.JPG)
 
 - `Individual Utilities (Raw)`: Individual-level utilities.
-![Individual Utilities (Raw)](sheet3_individual_utils_raw.JPG)
+![Individual Utilities (Raw)](pictures/sheet3_individual_utils_raw.JPG)
 
 - `Individual Util.s (ZC Diffs)`: Individual-level utilities with Zero-Centered Diffs.
-![Individual Util.s (ZC Diffs)](sheet4_individual_utils_zc_diffs.JPG)
+![Individual Util.s (ZC Diffs)](pictures/sheet4_individual_utils_zc_diffs.JPG)
 
 - `Individual Importances`: Individual-level importances.
-![Individual Importances](sheet5_individual_importances.JPG)
+![Individual Importances](pictures/sheet5_individual_importances.JPG)
