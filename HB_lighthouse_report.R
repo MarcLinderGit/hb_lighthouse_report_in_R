@@ -60,10 +60,10 @@ data <- cbind(data, dummy_vars_df)
 # Create a choice variable based on alt and choice columns
 # -------------------------------------------------------
 
-# for every task, the row containing alternative 1 must hold the value that indicates which alternative was chosen, all other rows = 0
-# if alternative 2 was chosen in task 1, 
-# first row would indicate task:1 , alt:1, choice: 2
-# second row would indicate task:1 , alt:2, choice: 0
+# Create a choice variable:
+# Initialize a vector 'choice' with zeros for each row in the dataset.
+# If the 'alt' column in the dataset is equal to 1, set the corresponding value in 'choice' to 1,
+# indicating that this particular alternative was chosen by the respondent.
 choice <- rep(0, nrow(data))
 choice[data[,"alt"] == 1] <- data[data[,"choice"] == 1, "alt"]
 
