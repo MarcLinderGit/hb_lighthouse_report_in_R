@@ -143,7 +143,7 @@ hb.post <- choicemodelr(data = choice_data,
 
 1. `data`: This argument specifies the dataset that you want to use for choice modeling. In this case, it's `choice_data`, which  contains the data on respondent choices and attributes. It is important to follow the previous steps to get the data into the specific shape needed for the function to work.
 
-2. `xcoding`: This argument specifies the coding scheme for the model. It's a vector that controls the coding for each attribute. In this example, `rep(1, 8)` indicates that all attributes are coded with the same scheme, using **effect coding**. Effect coding is a way to represent categorical variables in regression models, and here, it's used for coding the levels of attributes.
+2. `xcoding`: This argument specifies the coding scheme for the model. It's a vector that controls the coding for each attribute. In this example, `rep(1, 8)` (4 attributes * 2 levels, the third level is left out as the reference category) indicates that all attributes are coded with the same scheme, using **effect coding**. Effect coding is a way to represent categorical variables in regression models, and here, it's used for coding the levels of attributes.
 
 3. `mcmc`: This argument configures the Markov Chain Monte Carlo (MCMC) settings for estimation. MCMC is a statistical method used for estimating parameters in complex models. 
    - `R`: Specifies the total number of iterations or "runs" for the MCMC algorithm. In this case, it's set to 20,000 iterations.
